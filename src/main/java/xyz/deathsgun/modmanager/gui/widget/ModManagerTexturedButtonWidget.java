@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        gradlePluginPortal()
+package xyz.deathsgun.modmanager.gui.widget;
+
+import com.terraformersmc.modmenu.gui.widget.ModMenuTexturedButtonWidget;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+
+public class ModManagerTexturedButtonWidget extends ModMenuTexturedButtonWidget {
+
+    public ModManagerTexturedButtonWidget(int x, int y, int width, int height, int u, int v, Identifier texture, int uWidth, int vHeight, PressAction onPress, Text message) {
+        super(x, y, width, height, u, v, texture, uWidth, vHeight, onPress, message);
     }
 }

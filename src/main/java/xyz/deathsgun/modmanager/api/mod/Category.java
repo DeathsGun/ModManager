@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        gradlePluginPortal()
-    }
+package xyz.deathsgun.modmanager.api.mod;
+
+import net.minecraft.text.TranslatableText;
+
+public record Category(
+        String id,
+        TranslatableText text
+) {
 }

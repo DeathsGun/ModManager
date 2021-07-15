@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        gradlePluginPortal()
-    }
+package xyz.deathsgun.modmanager.gui.widget.better;
+
+import net.minecraft.client.gui.Element;
+
+public interface IListScreen {
+
+    Element getFocused();
+
+    <E> void updateSelectedEntry(Object widget, E entry);
+
+    <E> E getEntry(Object widget);
 }

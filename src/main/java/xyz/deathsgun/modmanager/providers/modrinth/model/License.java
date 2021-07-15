@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        gradlePluginPortal()
+package xyz.deathsgun.modmanager.providers.modrinth.model;
+
+public class License {
+    private String id;
+    private String name;
+    private String url;
+
+    public String name() {
+        return name;
     }
+
 }

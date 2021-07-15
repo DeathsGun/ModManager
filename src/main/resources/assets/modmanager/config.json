@@ -1,1 +1,4 @@
-{}
+{
+  "stable-only": false,
+  "provider": "Modrinth"
+}

@@ -3,7 +3,7 @@
   "id": "modmanager",
   "version": "${version}",
   "name": "Mod Manager",
-  "description": "Install mods through a simple gui",
+  "description": "Extends ModMenu with an additional tab where you can install mods from Modrinth",
   "authors": [
 	"DeathsGun"
   ],
@@ -12,23 +12,20 @@
 	"sources": "https://github.com/DeathsGun/ModManager",
 	"issues": "https://github.com/DeathsGun/ModManager/issues"
   },
-  "license": "LGPL-3.0",
+  "license": "APL-2.0",
   "environment": "client",
   "entrypoints": {
 	"client": [
-	  "xyz.deathsgun.modmanager.ModManagerClient"
-	],
-	"_comment": [
-	  "TODO: Add config screen"
+	  "xyz.deathsgun.modmanager.ModManager"
 	]
   },
   "mixins": [
 	"modmanager.mixins.json"
   ],
   "depends": {
-	"fabricloader": "*",
-	"fabric": "*",
-	"minecraft": ">=1.16",
-	"modmenu": ">=1.14.6+build.31"
+	"fabricloader": ">=0.11.3",
+	"modmenu": ">=${modmenu_version}",
+	"minecraft": "1.17.x",
+	"java": ">=16"
   }
 }

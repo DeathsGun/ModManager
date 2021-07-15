@@ -16,39 +16,41 @@
 
 package xyz.deathsgun.modmanager.mixin;
 
-import com.terraformersmc.modmenu.gui.ModsScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.toast.SystemToast;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.deathsgun.modmanager.gui.ModsOverviewScreen;
-import xyz.deathsgun.modmanager.gui.widget.ModManagerTexturedButtonWidget;
+import xyz.deathsgun.modmanager.ModManager;
 
 import java.util.Objects;
 
-@Mixin(ModsScreen.class)
-public class ModsScreenMixin extends Screen {
+@Mixin(TitleScreen.class)
+public abstract class TitleScreenMixin extends Screen {
 
-    private static final Identifier MODMANAGER_BUTTON_LOCATION = new Identifier("modmanager", "textures/gui/install_button.png");
-    @Shadow
-    private int paneWidth;
+    private boolean hasRun = false;
 
-    protected ModsScreenMixin(Text title) {
+    protected TitleScreenMixin(Text title) {
         super(title);
     }
 
-    @Inject(method = "init", at = @At("TAIL"))
-    public void onInit(CallbackInfo ci) {
-        int searchBoxWidth = this.paneWidth - 32 - 22;
-        this.addDrawableChild(new ModManagerTexturedButtonWidget(this.paneWidth / 2 + searchBoxWidth / 2 + 14,
-                22, 20, 20, 0, 0, MODMANAGER_BUTTON_LOCATION, 32, 64, button -> {
-            Objects.requireNonNull(this.client).openScreen(new ModsOverviewScreen(this));
-        }, new TranslatableText("modmanager.button.open")));
+    @Inject(at = @At("TAIL"), method = "render")
+    public void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (hasRun) {
+            return;
+        }
+        hasRun = true;
+        if (!ModManager.getUpdateChecker().updatesAvailable()) {
+            return;
+        }
+        Objects.requireNonNull(client).getToastManager().add(new SystemToast(SystemToast.Type.TUTORIAL_HINT,
+                new TranslatableText("modmanager.toast.update.title"),
+                new TranslatableText("modmanager.toast.update.description")));
     }
 
 }

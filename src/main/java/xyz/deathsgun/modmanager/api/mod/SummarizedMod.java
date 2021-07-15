@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        gradlePluginPortal()
-    }
+package xyz.deathsgun.modmanager.api.mod;
+
+import java.util.List;
+
+/**
+ * A short representation for Mods used to
+ */
+public record SummarizedMod(
+        String id,
+        String slug,
+        String author,
+        String name,
+        List<String> latest,
+        String description,
+        String icon
+) {
 }
